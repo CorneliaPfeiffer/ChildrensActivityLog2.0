@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace ChildrensActivityLog2._0
+namespace ChildrensActivityLog2
 {
     public class Startup
     {

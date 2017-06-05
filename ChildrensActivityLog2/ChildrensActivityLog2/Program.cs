@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ChildrensActivityLog2._0
+namespace ChildrensActivityLog2
 {
     public class Program
     {

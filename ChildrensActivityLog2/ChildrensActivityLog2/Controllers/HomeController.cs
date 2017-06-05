@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ChildrensActivityLog2._0.Controllers
+namespace ChildrensActivityLog2.Controllers
 {
     public class HomeController : Controller
     {
