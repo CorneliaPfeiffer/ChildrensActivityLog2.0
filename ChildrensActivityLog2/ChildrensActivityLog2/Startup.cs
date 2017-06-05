@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ChildrensActivityLog2.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChildrensActivityLog2
 {
@@ -29,6 +31,10 @@ namespace ChildrensActivityLog2
         {
             // Add framework services.
             services.AddMvc();
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=ChildrensActivityLog2;Trusted_Connection=True;";
+            services.AddDbContext<ChildrensActivityLogContext>(options => options.UseSqlServer(connection));
+
+            //services.AddSingleton<IChildrensAcitivityLogRepository, ChildrensAcitivityLogRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
