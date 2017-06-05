@@ -1,9 +1,5 @@
 ﻿using ChildrensActivityLog2.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ChildrensActivityLog2.Repositories
 {
@@ -18,6 +14,7 @@ namespace ChildrensActivityLog2.Repositories
         public DbSet<SleepingPeriod> SleepingPeriods { get; set; }
         public DbSet<PlayEvent> PlayEvents { get; set; }
         public DbSet<ChildrensPlayEvents> ChildrensPlayEvents { get; set; }
+        public DbSet<Meal> Meals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

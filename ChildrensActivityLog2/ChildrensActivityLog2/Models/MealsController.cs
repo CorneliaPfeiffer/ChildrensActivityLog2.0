@@ -1,30 +1,31 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ChildrensActivityLog2.Models;
 using ChildrensActivityLog2.Repositories;
 
-namespace ChildrensActivityLog2.Controllers
+namespace ChildrensActivityLog2.Models
 {
-    public class SleepingPeriodsController : Controller
+    public class MealsController : Controller
     {
         private readonly ChildrensActivityLogContext _context;
 
-        public SleepingPeriodsController(ChildrensActivityLogContext context)
+        public MealsController(ChildrensActivityLogContext context)
         {
             _context = context;    
         }
 
-        // GET: SleepingPeriods
+        // GET: Meals
         public async Task<IActionResult> Index()
         {
-            var childrensActivityLogContext = _context.SleepingPeriods.Include(s => s.Child);
+            var childrensActivityLogContext = _context.Meals.Include(m => m.Child);
             return View(await childrensActivityLogContext.ToListAsync());
         }
 
-        // GET: SleepingPeriods/Details/5
+        // GET: Meals/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,42 +33,42 @@ namespace ChildrensActivityLog2.Controllers
                 return NotFound();
             }
 
-            var sleepingPeriod = await _context.SleepingPeriods
-                .Include(s => s.Child)
+            var meal = await _context.Meals
+                .Include(m => m.Child)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (sleepingPeriod == null)
+            if (meal == null)
             {
                 return NotFound();
             }
 
-            return View(sleepingPeriod);
+            return View(meal);
         }
 
-        // GET: SleepingPeriods/Create
+        // GET: Meals/Create
         public IActionResult Create()
         {
             ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id");
             return View();
         }
 
-        // POST: SleepingPeriods/Create
+        // POST: Meals/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ChildId,From,To,TypeOfSleepingPeriod")] SleepingPeriod sleepingPeriod)
+        public async Task<IActionResult> Create([Bind("Id,ChildId,From,To,ToEat,ToDrink")] Meal meal)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(sleepingPeriod);
+                _context.Add(meal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id", sleepingPeriod.ChildId);
-            return View(sleepingPeriod);
+            ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id", meal.ChildId);
+            return View(meal);
         }
 
-        // GET: SleepingPeriods/Edit/5
+        // GET: Meals/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,23 +76,23 @@ namespace ChildrensActivityLog2.Controllers
                 return NotFound();
             }
 
-            var sleepingPeriod = await _context.SleepingPeriods.SingleOrDefaultAsync(m => m.Id == id);
-            if (sleepingPeriod == null)
+            var meal = await _context.Meals.SingleOrDefaultAsync(m => m.Id == id);
+            if (meal == null)
             {
                 return NotFound();
             }
-            ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id", sleepingPeriod.ChildId);
-            return View(sleepingPeriod);
+            ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id", meal.ChildId);
+            return View(meal);
         }
 
-        // POST: SleepingPeriods/Edit/5
+        // POST: Meals/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ChildId,From,To,TypeOfSleepingPeriod")] SleepingPeriod sleepingPeriod)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ChildId,From,To,ToEat,ToDrink")] Meal meal)
         {
-            if (id != sleepingPeriod.Id)
+            if (id != meal.Id)
             {
                 return NotFound();
             }
@@ -100,12 +101,12 @@ namespace ChildrensActivityLog2.Controllers
             {
                 try
                 {
-                    _context.Update(sleepingPeriod);
+                    _context.Update(meal);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SleepingPeriodExists(sleepingPeriod.Id))
+                    if (!MealExists(meal.Id))
                     {
                         return NotFound();
                     }
@@ -116,11 +117,11 @@ namespace ChildrensActivityLog2.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id", sleepingPeriod.ChildId);
-            return View(sleepingPeriod);
+            ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id", meal.ChildId);
+            return View(meal);
         }
 
-        // GET: SleepingPeriods/Delete/5
+        // GET: Meals/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -128,31 +129,31 @@ namespace ChildrensActivityLog2.Controllers
                 return NotFound();
             }
 
-            var sleepingPeriod = await _context.SleepingPeriods
-                .Include(s => s.Child)
+            var meal = await _context.Meals
+                .Include(m => m.Child)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (sleepingPeriod == null)
+            if (meal == null)
             {
                 return NotFound();
             }
 
-            return View(sleepingPeriod);
+            return View(meal);
         }
 
-        // POST: SleepingPeriods/Delete/5
+        // POST: Meals/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sleepingPeriod = await _context.SleepingPeriods.SingleOrDefaultAsync(m => m.Id == id);
-            _context.SleepingPeriods.Remove(sleepingPeriod);
+            var meal = await _context.Meals.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Meals.Remove(meal);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool SleepingPeriodExists(int id)
+        private bool MealExists(int id)
         {
-            return _context.SleepingPeriods.Any(e => e.Id == id);
+            return _context.Meals.Any(e => e.Id == id);
         }
     }
 }

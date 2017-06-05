@@ -9,9 +9,10 @@ using ChildrensActivityLog2.Models;
 namespace ChildrensActivityLog2.Migrations
 {
     [DbContext(typeof(ChildrensActivityLogContext))]
-    partial class ChildrensActivityLogContextModelSnapshot : ModelSnapshot
+    [Migration("20170605095258_MealAdded")]
+    partial class MealAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

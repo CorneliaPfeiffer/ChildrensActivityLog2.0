@@ -31,7 +31,7 @@ namespace ChildrensActivityLog2
         {
             // Add framework services.
             services.AddMvc();
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=ChildrensActivityLog2;Trusted_Connection=True;";
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=ChildrensActivityLog3;Trusted_Connection=True;";
             services.AddDbContext<ChildrensActivityLogContext>(options => options.UseSqlServer(connection));
 
             //services.AddSingleton<IChildrensAcitivityLogRepository, ChildrensAcitivityLogRepository>();
