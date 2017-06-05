@@ -1,0 +1,42 @@
+@model ChildrensActivityLog2.Models.SleepingPeriod
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SleepingPeriod</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.From)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.From)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.To)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.To)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfSleepingPeriod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfSleepingPeriod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Child)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Child.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

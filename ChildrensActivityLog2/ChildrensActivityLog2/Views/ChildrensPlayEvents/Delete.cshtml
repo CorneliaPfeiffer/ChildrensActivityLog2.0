@@ -1,0 +1,36 @@
+@model ChildrensActivityLog2.Models.ChildrensPlayEvents
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ChildrensPlayEvents</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="ChildId" />
+        <input type="hidden" asp-for="PlayEventId" />
+        <dt>
+            @Html.DisplayNameFor(model => model.Child)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Child.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayEvent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PlayEvent.Id)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>
