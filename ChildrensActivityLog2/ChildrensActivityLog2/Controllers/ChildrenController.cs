@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ChildrensActivityLog2.Models;
 using ChildrensActivityLog2.Repositories;
+using ChildrensActivityLog2.ViewModels;
 
 namespace ChildrensActivityLog2.Controllers
 {
@@ -59,10 +60,15 @@ namespace ChildrensActivityLog2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(child);
+            var viewModel = new ChildCreateViewModel()
+            {
+                FirstName = child.FirstName,
+                LastName = child.LastName,
+                DateOfBirth = child.DateOfBirth
+            };
+            return View(viewModel);
         }
 
-        // GET: Children/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

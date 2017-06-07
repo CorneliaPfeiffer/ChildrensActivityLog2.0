@@ -1,49 +1,83 @@
-@model ChildrensActivityLog2.Models.Child
+@model ChildrensActivityLog2.ViewModels.ChildCreateViewModel
 
-@{
-    ViewData["Title"] = "Create";
-}
+    @{
+        ViewData["Title"] = "Create";
+    }
 
-<h2>Create</h2>
+    <h2>Create</h2>
 
-<form asp-action="Create">
-    <div class="form-horizontal">
-        <h4>Child</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="FirstName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+    <form id="myForm" asp-action="Create">
+        <div class="form-horizontal">
+            <h4>Child</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input id="FirstName" asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="DateOfBirth" class="form-control" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label asp-for="LastName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="DateOfBirth" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="DateOfBirth" class="form-control" />
-                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+    </form>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
     </div>
-</form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+    <script>
+        var InputValidation = function () {
+            debugger
+            var data = $("#myForm").serialize();
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+            //var FirstName = $("#FirstName").val();
+            //if (Email == "" || Email == undefined) {
+            //    alert("Pleas enter valid Firstname")
+            //    return false;}
+
+            if (!$("#myForm").valid()) {
+
+                return false;
+            }
+
+            $.ajax({
+                type: "Post",
+                url: "/Children/Create",
+                data: data,
+                success: function (response) {
+                    debugger
+                    //if (response == "fail") {
+                    //    window.location.href = "/Children/Create";
+
+                    //}
+                    //else {
+                        window.location.href = "/Children/Index";
+                    //}
+
+                }
+
+            })
+        }
+    </script>
