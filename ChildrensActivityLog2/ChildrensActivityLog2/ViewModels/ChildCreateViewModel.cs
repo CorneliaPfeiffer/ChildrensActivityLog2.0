@@ -16,7 +16,9 @@ namespace ChildrensActivityLog2.ViewModels
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "Your {0} is required")]
+        [Required(ErrorMessage = "Your {0} is required. Format: yyyy-mm-dd")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [DisplayName("Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
     }
