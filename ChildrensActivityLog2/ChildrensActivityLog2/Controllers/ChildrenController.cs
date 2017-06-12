@@ -60,13 +60,8 @@ namespace ChildrensActivityLog2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            var viewModel = new ChildCreateViewModel()
-            {
-                FirstName = child.FirstName,
-                LastName = child.LastName,
-                DateOfBirth = child.DateOfBirth
-            };
-            return View(viewModel);
+           
+            return View(child);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -116,6 +111,13 @@ namespace ChildrensActivityLog2.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            var viewModel = new ChildCreateViewModel()
+            {
+                FirstName = child.FirstName,
+                LastName = child.LastName,
+                DateOfBirth = child.DateOfBirth
+            };
+            return View(viewModel);
             return View(child);
         }
 

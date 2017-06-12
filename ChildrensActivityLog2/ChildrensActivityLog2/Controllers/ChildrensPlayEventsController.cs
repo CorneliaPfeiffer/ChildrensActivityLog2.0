@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ChildrensActivityLog2.Models;
 using ChildrensActivityLog2.Repositories;
+using ChildrensActivityLog2.ViewModels;
+using System;
+using System.Collections.Generic;
 
 namespace ChildrensActivityLog2.Controllers
 {
@@ -14,7 +17,7 @@ namespace ChildrensActivityLog2.Controllers
 
         public ChildrensPlayEventsController(ChildrensActivityLogContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: ChildrensPlayEvents
@@ -22,6 +25,40 @@ namespace ChildrensActivityLog2.Controllers
         {
             var childrensActivityLogContext = _context.ChildrensPlayEvents.Include(c => c.Child).Include(c => c.PlayEvent);
             return View(await childrensActivityLogContext.ToListAsync());
+        }
+
+        private void PopulateChildrenDropDown(ChildrensPlayEventsViewModel viewModel)
+        {
+            var _Children = _context.Children;
+            viewModel.Children = new List<SelectListItem>();
+            foreach (var child in _Children)
+            {
+                viewModel.Children.Add(
+                    new SelectListItem
+                    {
+                        Text = $"{child.FirstName} {child.LastName}",
+                        Value = $"{child.Id.ToString()}"
+                    });
+            }
+        }
+
+        private void PopulatePlayEventDropDown(ChildrensPlayEventsViewModel viewModel)
+        {
+            var _PlayEvents = _context.PlayEvents;
+            viewModel.Children = new List<SelectListItem>();
+            foreach (var pe in _PlayEvents)
+            {
+                if(pe != null)
+                { 
+                viewModel.PlayEvents.Add(
+                    new SelectListItem
+                    {
+                        Text = $"{pe.Title}",
+                        Value = $"{pe.Id.ToString()}"
+                    });
+                }
+                else { BadRequest("No play-event added!"); }
+            }
         }
 
         // GET: ChildrensPlayEvents/Details/5
@@ -47,9 +84,13 @@ namespace ChildrensActivityLog2.Controllers
         // GET: ChildrensPlayEvents/Create
         public IActionResult Create()
         {
-            ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id");
-            ViewData["PlayEventId"] = new SelectList(_context.PlayEvents, "Id", "Id");
-            return View();
+            //ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id");
+            //ViewData["PlayEventId"] = new SelectList(_context.PlayEvents, "Id", "Id");
+
+            var viewModel = new ChildrensPlayEventsViewModel();
+            PopulatePlayEventDropDown(viewModel);
+            PopulateChildrenDropDown(viewModel);
+            return View(viewModel);        
         }
 
         // POST: ChildrensPlayEvents/Create

@@ -1,8 +1,4 @@
-@model ChildrensActivityLog2.Models.ChildrensPlayEvents
-
-@{
-    ViewData["Title"] = "Create";
-}
+@model ChildrensActivityLog2.ViewModels.ChildrensPlayEventsViewModel
 
 <h2>Create</h2>
 
@@ -14,13 +10,13 @@
         <div class="form-group">
             <label asp-for="ChildId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="ChildId" class ="form-control" asp-items="ViewBag.ChildId"></select>
+                <select asp-for="ChildId" class ="form-control" asp-items="@Model.Children"></select>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="PlayEventId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="PlayEventId" class ="form-control" asp-items="ViewBag.PlayEventId"></select>
+                <select asp-for="PlayEventId" class ="form-control" asp-items="@Model.PlayEvents"></select>
             </div>
         </div>
         <div class="form-group">
