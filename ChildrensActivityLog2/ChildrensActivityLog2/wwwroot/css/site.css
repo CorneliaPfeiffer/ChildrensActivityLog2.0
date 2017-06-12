@@ -1,6 +1,8 @@
-﻿body {
+﻿/*THANKS TO <a href="http://www.freepik.com/free-vector/green-background-about-children-playing-in-the-field_922727.htm" > Designed by Freepik</a >*/
+body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url('../images/background_green.jpg');
 }
 
 /* Wrapping element */
@@ -8,6 +10,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
