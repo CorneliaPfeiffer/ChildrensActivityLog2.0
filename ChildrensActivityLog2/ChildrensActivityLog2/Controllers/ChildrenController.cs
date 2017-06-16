@@ -37,8 +37,21 @@ namespace ChildrensActivityLog2.Controllers
             {
                 return NotFound();
             }
+            child.ChildrensPlayEvents = _context.ChildrensPlayEvents.Include(p => p.PlayEvent).Where(pe => pe.ChildId == id).ToList();
+            child.Meals = _context.Meals.Where(m => m.ChildId == id).OrderBy(p => p.From).Take(10).ToList();
+            child.SleepingPeriods = _context.SleepingPeriods.Where(s => s.ChildId == id).OrderBy(p => p.From).Take(10).ToList();
+            var viewModel = new ChildDetailsViewModel() {
+                Id = child.Id,                
+                DateOfBirth = child.DateOfBirth,
+                FirstName = child.FirstName,
+                LastName = child.LastName,
+                Meals = child.Meals,
+                SleepingPeriods = child.SleepingPeriods,
+                ChildrensPlayEvents = child.ChildrensPlayEvents,
+                PlayEvents = child.ChildrensPlayEvents.Select(p => p.PlayEvent).OrderBy(p => p.StartDate).Take(10).ToList()
+            };
 
-            return View(child);
+            return View(viewModel);
         }
 
         // GET: Children/Create
@@ -76,7 +89,12 @@ namespace ChildrensActivityLog2.Controllers
             {
                 return NotFound();
             }
-            return View(child);
+            var viewModel = new ChildCreateViewModel() {
+                Id = child.Id,
+                DateOfBirth = child.DateOfBirth,
+                FirstName = child.FirstName,
+                LastName = child.LastName};
+            return View(viewModel);
         }
 
         // POST: Children/Edit/5
@@ -118,7 +136,7 @@ namespace ChildrensActivityLog2.Controllers
                 DateOfBirth = child.DateOfBirth
             };
             return View(viewModel);
-            return View(child);
+          
         }
 
         // GET: Children/Delete/5

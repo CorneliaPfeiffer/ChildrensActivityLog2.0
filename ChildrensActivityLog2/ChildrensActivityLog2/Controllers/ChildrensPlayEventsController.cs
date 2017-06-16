@@ -45,7 +45,7 @@ namespace ChildrensActivityLog2.Controllers
         private void PopulatePlayEventDropDown(ChildrensPlayEventsViewModel viewModel)
         {
             var _PlayEvents = _context.PlayEvents;
-            viewModel.Children = new List<SelectListItem>();
+            viewModel.PlayEvents = new List<SelectListItem>();
             foreach (var pe in _PlayEvents)
             {
                 if(pe != null)
@@ -53,12 +53,13 @@ namespace ChildrensActivityLog2.Controllers
                 viewModel.PlayEvents.Add(
                     new SelectListItem
                     {
-                        Text = $"{pe.Title}",
+                        Text = $"{pe.Title} ({pe.StartDate})",
                         Value = $"{pe.Id.ToString()}"
                     });
                 }
                 else { BadRequest("No play-event added!"); }
             }
+           
         }
 
         // GET: ChildrensPlayEvents/Details/5

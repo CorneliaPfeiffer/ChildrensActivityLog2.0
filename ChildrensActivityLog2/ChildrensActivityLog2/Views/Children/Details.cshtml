@@ -1,4 +1,4 @@
-@model ChildrensActivityLog2.Models.Child
+@model ChildrensActivityLog2.ViewModels.ChildDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -26,11 +26,47 @@
             @Html.DisplayNameFor(model => model.DateOfBirth)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.DateOfBirth)
+            @Model.DateOfBirth.Year-@Model.DateOfBirth.Month-@Model.DateOfBirth.Day
         </dd>
-    </dl>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChildrensPlayEvents)
+        </dt>
+
+        @foreach (var item in Model.PlayEvents)
+         {
+            <dd>
+               @item.StartDate.Year-@item.StartDate.Month-@item.StartDate.Day @item.StartDate.Hour:@item.StartDate.Minute: @item.Title
+            </dd>
+         }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Meals)
+        </dt>
+       @foreach (var item in Model.Meals)
+       {
+        <dd>
+            @item.From.Year-@item.From.Month-@item.From.Day @item.From.Hour:@item.From.Minute: @item.ToEat, @item.ToDrink
+        </dd>
+       }
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.SleepingPeriods)
+        </dt>
+        @foreach (var item in Model.SleepingPeriods)
+        {
+            <dd>
+                @item.From.Year-@item.From.Month-@item.From.Day @item.From.Hour:@item.From.Minute: @item.TypeOfSleepingPeriod
+           
+            </dd>
+        }
+        <dt>   </dt>
+        <dd>   </dd>
+</dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <p>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </p>
 </div>

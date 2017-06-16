@@ -6,6 +6,8 @@ namespace ChildrensActivityLog2.ViewModels
 {
     public class ChildCreateViewModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Your {0} is required")]
         [MinLength(2), MaxLength(20)]
         [DisplayName("First Name")]
