@@ -40,8 +40,8 @@ namespace ChildrensActivityLog2.Controllers
                 return NotFound();
             }
             child.ChildrensPlayEvents = _context.ChildrensPlayEvents.Include(p => p.PlayEvent).Where(pe => pe.ChildId == id).ToList();
-            child.Meals = _context.Meals.Where(m => m.ChildId == id).OrderBy(p => p.From).Take(10).ToList();
-            child.SleepingPeriods = _context.SleepingPeriods.Where(s => s.ChildId == id).OrderBy(p => p.From).Take(10).ToList();
+            child.Meals = _context.Meals.Where(m => m.ChildId == id).OrderByDescending(p => p.From).Take(10).ToList();
+            child.SleepingPeriods = _context.SleepingPeriods.Where(s => s.ChildId == id).OrderByDescending(p => p.From).Take(10).ToList();
             var viewModel = new ChildDetailsViewModel() {
                 Id = child.Id,                
                 DateOfBirth = child.DateOfBirth,
@@ -50,7 +50,7 @@ namespace ChildrensActivityLog2.Controllers
                 Meals = child.Meals,
                 SleepingPeriods = child.SleepingPeriods,
                 ChildrensPlayEvents = child.ChildrensPlayEvents,
-                PlayEvents = child.ChildrensPlayEvents.Select(p => p.PlayEvent).OrderBy(p => p.StartDate).Take(10).ToList()
+                PlayEvents = child.ChildrensPlayEvents.Select(p => p.PlayEvent).OrderByDescending(p => p.StartDate).Take(10).ToList()
             };
 
             return View(viewModel);
