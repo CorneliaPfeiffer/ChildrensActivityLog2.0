@@ -1,4 +1,4 @@
-@model ChildrensActivityLog2.Models.Meal
+@model ChildrensActivityLog2.ViewModels.MealsCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -14,7 +14,7 @@
         <div class="form-group">
             <label asp-for="ChildId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="ChildId" class ="form-control" asp-items="ViewBag.ChildId"></select>
+                <select asp-for="ChildId" class ="form-control" asp-items="@Model.Children"></select>
             </div>
         </div>
         <div class="form-group">

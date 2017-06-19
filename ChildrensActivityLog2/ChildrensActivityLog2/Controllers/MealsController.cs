@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ChildrensActivityLog2.Repositories;
+using ChildrensActivityLog2.ViewModels;
+using System.Collections.Generic;
+using ChildrensActivityLog2.Models;
 
-namespace ChildrensActivityLog2.Models
+namespace ChildrensActivityLog2.Controllers
 {
     public class MealsController : Controller
     {
@@ -15,7 +18,20 @@ namespace ChildrensActivityLog2.Models
         {
             _context = context;    
         }
-
+        private void PopulateChildrenDropDown(MealsCreateViewModel viewModel)
+        {
+            var _Children = _context.Children;
+            viewModel.Children = new List<SelectListItem>();
+            foreach (var child in _Children)
+            {
+                viewModel.Children.Add(
+                    new SelectListItem
+                    {
+                        Text = $"{child.FirstName} {child.LastName}",
+                        Value = $"{child.Id.ToString()}"
+                    });
+            }
+        }
         // GET: Meals
         public async Task<IActionResult> Index()
         {
@@ -45,8 +61,10 @@ namespace ChildrensActivityLog2.Models
         // GET: Meals/Create
         public IActionResult Create()
         {
-            ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id");
-            return View();
+            //ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id");
+            var viewModel = new MealsCreateViewModel();
+            PopulateChildrenDropDown(viewModel);
+            return View(viewModel);
         }
 
         // POST: Meals/Create

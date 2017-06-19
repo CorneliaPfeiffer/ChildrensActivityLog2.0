@@ -44,7 +44,7 @@ namespace ChildrensActivityLog2.Controllers
 
         private void PopulatePlayEventDropDown(ChildrensPlayEventsViewModel viewModel)
         {
-            var _PlayEvents = _context.PlayEvents;
+            var _PlayEvents = _context.PlayEvents;           
             viewModel.PlayEvents = new List<SelectListItem>();
             foreach (var pe in _PlayEvents)
             {
@@ -100,7 +100,7 @@ namespace ChildrensActivityLog2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ChildId,PlayEventId")] ChildrensPlayEvents childrensPlayEvents)
-        {
+        {          
             if (ModelState.IsValid)
             {
                 _context.Add(childrensPlayEvents);
