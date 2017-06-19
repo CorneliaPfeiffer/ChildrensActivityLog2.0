@@ -20,7 +20,9 @@ namespace ChildrensActivityLog2.Controllers
         // GET: Children
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Children.ToListAsync());
+            var viewModel = new ChildCreateViewModel();
+            viewModel.Child = await _context.Children.ToListAsync();
+            return View(viewModel);
         }
 
         // GET: Children/Details/5

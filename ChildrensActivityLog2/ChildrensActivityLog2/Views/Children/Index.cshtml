@@ -1,4 +1,4 @@
-@model IEnumerable<ChildrensActivityLog2.Models.Child>
+@model ChildrensActivityLog2.ViewModels.ChildCreateViewModel
 
 @{
     ViewData["Title"] = "Children";
@@ -25,7 +25,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Child) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)

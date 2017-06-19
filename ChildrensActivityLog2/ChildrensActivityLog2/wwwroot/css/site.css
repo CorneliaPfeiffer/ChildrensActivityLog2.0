@@ -1,8 +1,13 @@
 ﻿/*THANKS TO <a href="http://www.freepik.com/free-vector/green-background-about-children-playing-in-the-field_922727.htm" > Designed by Freepik</a >*/
+html {
+    background: url('../images/background_green.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-image: url('../images/background_green.jpg');
+    /*background-image: url('../images/background_green.jpg');*/
 }
 
 /* Wrapping element */

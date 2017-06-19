@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChildrensActivityLog2.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,5 +25,7 @@ namespace ChildrensActivityLog2.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         [DisplayName("Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
+
+        public ICollection<Child> Child { get; set; } = new List<Child>();
     }
 }
