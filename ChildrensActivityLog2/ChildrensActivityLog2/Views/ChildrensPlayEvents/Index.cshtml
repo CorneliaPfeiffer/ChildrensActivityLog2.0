@@ -33,10 +33,9 @@
                 @Html.DisplayFor(modelItem => item.PlayEvent.Title)
                 @Html.DisplayFor(modelItem => item.PlayEvent.StartDate)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { childId=item.ChildId, playEventId = item.PlayEventId  })
+            <td>               
+                @Html.ActionLink("Details", "Details", new { childId = item.ChildId, playEventId = item.PlayEventId }) |
+                @Html.ActionLink("Delete", "Delete", new { childId=item.ChildId, playEventId = item.PlayEventId })
             </td>
         </tr>
 }

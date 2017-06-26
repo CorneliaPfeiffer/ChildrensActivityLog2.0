@@ -14,17 +14,20 @@
             @Html.DisplayNameFor(model => model.Child)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Child.Id)
+            @Html.DisplayFor(model => model.Child.FirstName),
+            @Html.DisplayFor(model => model.Child.LastName),
+            @Html.DisplayFor(model => model.Child.DateOfBirth.Year)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.PlayEvent)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PlayEvent.Id)
+            @Html.DisplayFor(model => model.PlayEvent.Title),
+            @Html.DisplayFor(model => model.PlayEvent.StartDate),
+            @Html.DisplayFor(model => model.PlayEvent.Description)
         </dd>
     </dl>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+<div>   
     <a asp-action="Index">Back to List</a>
 </div>

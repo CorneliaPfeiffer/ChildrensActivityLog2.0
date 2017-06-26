@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using ChildrensActivityLog2.Models;
 using ChildrensActivityLog2.Repositories;
 using ChildrensActivityLog2.ViewModels;
-using System;
 using System.Collections.Generic;
 
 namespace ChildrensActivityLog2.Controllers
@@ -63,9 +62,9 @@ namespace ChildrensActivityLog2.Controllers
         }
 
         // GET: ChildrensPlayEvents/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? childId, int? playEventId)
         {
-            if (id == null)
+            if (childId == null || playEventId == null)
             {
                 return NotFound();
             }
@@ -73,7 +72,7 @@ namespace ChildrensActivityLog2.Controllers
             var childrensPlayEvents = await _context.ChildrensPlayEvents
                 .Include(c => c.Child)
                 .Include(c => c.PlayEvent)
-                .SingleOrDefaultAsync(m => m.ChildId == id);
+                .SingleOrDefaultAsync(m => m.ChildId == childId && m.PlayEventId == playEventId);
             if (childrensPlayEvents == null)
             {
                 return NotFound();
@@ -112,63 +111,63 @@ namespace ChildrensActivityLog2.Controllers
             return View(childrensPlayEvents);
         }
 
-        // GET: ChildrensPlayEvents/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: ChildrensPlayEvents/Edit/5
+        //public async Task<IActionResult> Edit(int? childId, int? playEventId)
+        //{
+        //    if (childId == null || playEventId == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var childrensPlayEvents = await _context.ChildrensPlayEvents.SingleOrDefaultAsync(m => m.ChildId == id);
-            if (childrensPlayEvents == null)
-            {
-                return NotFound();
-            }
-            ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id", childrensPlayEvents.ChildId);
-            ViewData["PlayEventId"] = new SelectList(_context.PlayEvents, "Id", "Id", childrensPlayEvents.PlayEventId);
-            return View(childrensPlayEvents);
-        }
+        //    var childrensPlayEvents = await _context.ChildrensPlayEvents.SingleOrDefaultAsync(m => m.ChildId == childId && m.PlayEventId == playEventId);
+        //    if (childrensPlayEvents == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id", childrensPlayEvents.ChildId);
+        //    ViewData["PlayEventId"] = new SelectList(_context.PlayEvents, "Id", "Id", childrensPlayEvents.PlayEventId);
+        //    return View(childrensPlayEvents);
+        //}
 
-        // POST: ChildrensPlayEvents/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ChildId,PlayEventId")] ChildrensPlayEvents childrensPlayEvents)
-        {
-            if (id != childrensPlayEvents.ChildId)
-            {
-                return NotFound();
-            }
+        //// POST: ChildrensPlayEvents/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("ChildId,PlayEventId")] ChildrensPlayEvents childrensPlayEvents)
+        //{
+        //    if (id != childrensPlayEvents.ChildId)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(childrensPlayEvents);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ChildrensPlayEventsExists(childrensPlayEvents.ChildId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction("Index");
-            }
-            ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id", childrensPlayEvents.ChildId);
-            ViewData["PlayEventId"] = new SelectList(_context.PlayEvents, "Id", "Id", childrensPlayEvents.PlayEventId);
-            return View(childrensPlayEvents);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(childrensPlayEvents);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!ChildrensPlayEventsExists(childrensPlayEvents.ChildId))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewData["ChildId"] = new SelectList(_context.Children, "Id", "Id", childrensPlayEvents.ChildId);
+        //    ViewData["PlayEventId"] = new SelectList(_context.PlayEvents, "Id", "Id", childrensPlayEvents.PlayEventId);
+        //    return View(childrensPlayEvents);
+        //}
 
         // GET: ChildrensPlayEvents/Delete/5
-        public async Task<IActionResult> Delete(int? playEventId, int? childId)
+        public async Task<IActionResult> Delete(int? childId, int? playEventId)
         {
             if (childId == null || playEventId == null)
             {
