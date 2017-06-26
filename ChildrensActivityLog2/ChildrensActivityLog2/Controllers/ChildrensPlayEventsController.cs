@@ -168,17 +168,17 @@ namespace ChildrensActivityLog2.Controllers
         }
 
         // GET: ChildrensPlayEvents/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? playEventId, int? childId)
         {
-            if (id == null)
+            if (childId == null || playEventId == null)
             {
                 return NotFound();
             }
 
-            var childrensPlayEvents = await _context.ChildrensPlayEvents
+            var childrensPlayEvents = _context.ChildrensPlayEvents
                 .Include(c => c.Child)
                 .Include(c => c.PlayEvent)
-                .SingleOrDefaultAsync(m => m.ChildId == id);
+                .SingleOrDefault(m => m.ChildId == childId && m.PlayEventId == playEventId);
             if (childrensPlayEvents == null)
             {
                 return NotFound();
@@ -188,19 +188,19 @@ namespace ChildrensActivityLog2.Controllers
         }
 
         // POST: ChildrensPlayEvents/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int childId, int playEventId)
         {
-            var childrensPlayEvents = await _context.ChildrensPlayEvents.SingleOrDefaultAsync(m => m.ChildId == id);
+            var childrensPlayEvents = await _context.ChildrensPlayEvents.SingleOrDefaultAsync(m => m.ChildId == childId && m.PlayEventId == playEventId);
             _context.ChildrensPlayEvents.Remove(childrensPlayEvents);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool ChildrensPlayEventsExists(int id)
+        private bool ChildrensPlayEventsExists(int childId)
         {
-            return _context.ChildrensPlayEvents.Any(e => e.ChildId == id);
+            return _context.ChildrensPlayEvents.Any(e => e.ChildId == childId);
         }
     }
 }

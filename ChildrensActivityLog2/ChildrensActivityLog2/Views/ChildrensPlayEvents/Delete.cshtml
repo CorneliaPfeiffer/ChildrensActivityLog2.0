@@ -11,24 +11,27 @@
     <h4>ChildrensPlayEvents</h4>
     <hr />
     <dl class="dl-horizontal">
-        <input type="hidden" asp-for="ChildId" />
-        <input type="hidden" asp-for="PlayEventId" />
+        @*<input type="hidden" asp-for="ChildId" value="@Model.ChildId" />*@
+        @*<input type="hidden" asp-for="PlayEventId" value="@Model.PlayEventId" />*@
         <dt>
             @Html.DisplayNameFor(model => model.Child)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Child.Id)
+            @Html.DisplayFor(model => model.Child.FirstName)
+            @Html.DisplayFor(model => model.Child.LastName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.PlayEvent)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PlayEvent.Id)
+            @Html.DisplayFor(model => model.PlayEvent.Title)
         </dd>
     </dl>
     
-    <form asp-action="Delete">
+    <form asp-action="DeleteConfirmed">
         <div class="form-actions no-color">
+            <input type="hidden" asp-for="ChildId" value="@Model.ChildId" />
+            <input type="hidden" asp-for="PlayEventId" value="@Model.PlayEventId" />
             <input type="submit" value="Delete" class="btn btn-default" /> |
             <a asp-action="Index">Back to List</a>
         </div>
